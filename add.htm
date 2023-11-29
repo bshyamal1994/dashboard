@@ -1,0 +1,51 @@
+<h4>Add</h4>
+<div class="red-bg">
+
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <form ng-submit="save()">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" ng-model="formdata.username">
+                    </div>
+                    <div class="form-group">
+                        <label>Fullname</label>
+                        <input type="text" class="form-control" ng-model="formdata.fullname">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" ng-model="formdata.email">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>UserID</th>
+                            <th>Fullname</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in userlist">
+                            <td>{{user.userId}}</td>
+                            <td>{{user.fullName}} </td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

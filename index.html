@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <link rel="stylesheet" href="app.css" />
+
+</head>
+
+<body ng-app="myApp">
+    <div class="body" ng-controller="myCtrl">
+        <div class="row">
+            <div class="col-sm-2" ng-show="IsVisible">
+                <div class="sidebar">
+                    <div ng-click="hideDiv()">
+                        <img src="logo.jpeg" style="height: 54px;" />
+                    </div>
+                    <ul class="list-menu">
+                        <li><a class="active" href="#/!"><i class="fa fa-home"></i>
+                                Dashboard</a></li>
+                        <li><a href="#!add">
+                                <i class="fa fa-reorder"></i>
+                                Add</a></li>
+                        <li><a href="#!list">
+                                <i class="fa fa-plus-square"></i>
+                                List</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-sm-1" ng-show="!IsVisible">
+                <ul class="list-menu">
+                    <li><a href="#/!" class="active" ng-click="hideDiv()"><i class="fa fa-home"></i></a></li>
+                    <li><a href="#!add"><i class="fa fa-reorder"></i></a></li>
+                    <li><a href="#!list"><i class="fa fa-plus-square"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-sm-8 content">
+                <div ng-view></div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    var app = angular.module("myApp", ["ngRoute"]);
+    app.config(function ($routeProvider) {
+        $routeProvider
+            .when("/", {
+                templateUrl: "dashboard.htm",
+            })
+            .when("/add", {
+                templateUrl: "add.htm",
+            })
+            .when("/list", {
+                templateUrl: "list.htm",
+            });
+    });
+    app.controller("myCtrl", function ($scope, $http) {
+        $scope.IsVisible = true;
+        $scope.serverUrl = '';
+        $scope.hideDiv = function () {
+            $scope.IsVisible = $scope.IsVisible ? false : true;
+        };
+
+        $scope.formdata = {};
+        $scope.userlist = [];
+
+        $http.get("https://dashboard.free.beeceptor.com/all-data")
+            .then(response => {
+                console.log(response.data.dashboardData.userData)
+                $scope.userlist = response.data.dashboardData.userData;
+            })
+        $scope.save = function () {
+            console.log($scope.formdata);
+            $http({
+                method: "POST",
+                url: "https://dashboard.free.beeceptor.com/all-dashboard-data",
+                dataType: 'json',
+                data: $scope.formdata,
+                headers: { "Content-Type": "application/json" }
+            }).then(function successCallback(response) {
+                console.log('saved')
+                $scope.formdata = {}
+            }, function errorCallback(response) {
+                console.log('error ')
+            });
+
+
+        }
+
+
+
+    });
+
+</script>
+
+</html>

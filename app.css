@@ -1,0 +1,42 @@
+.body{
+    padding: 30px;
+}
+.list-menu{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.list-menu li a.active {
+    font-weight: bold;
+    border-right: 1px solid rgb(0, 136, 255);
+}
+.list-menu li a i{
+    padding-right: 25px;
+}
+.list-menu li a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.list-menu li a {
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+}
+.height-300{
+    height: 300px;
+}
+.red-bg{
+    height: 200px;
+    background: #cf828261;
+    margin-bottom: 40px;
+}
+.content{
+    background: #efebeb;
+    padding-top: 10px;
+}
+img:hover{
+    cursor: pointer;
+}
+h6{
+    font-weight: bold;
+}
